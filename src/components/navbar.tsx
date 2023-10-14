@@ -23,7 +23,7 @@ const Navbar = async () => {
       <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
         <div className="flex flex-row space-x-2 items-center justify-center">
           <DevSetupLogo />
-          <span>devsetup</span>
+          <span className='font-bold'>devsetup</span>
         </div>
 
         {user ? (

@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 const HeroSection = () => {
   return (
-    <section className="animate-in flex flex-col gap-14 opacity-0 w-full max-w-4xl px-3 py-16 lg:py-24 text-foreground ">
-      <div className="flex flex-col space-y-8 md:space-y-0 md:flex-row md:space-x-8 justify-center  items-center">
-        <div className="flex flex-col space-y-4  md:items-start md:text-left md:w-1/2 w-full text-center items-center">
-          <p className="text-3xl lg:text-5xl !leading-tight">
+    <section className="animate-in flex flex-col gap-14 opacity-0 w-full max-w-5xl px-3 py-16 lg:py-24 text-foreground ">
+      <div className="flex flex-col  md:flex-row md:space-x-8 justify-center  items-center">
+        <div className="flex flex-col space-y-4   md:items-start md:text-left md:w-1/2 w-full text-center items-center">
+          <p className="text-3xl lg:text-5xl !leading-tight font-bold">
             Easily discover and share your setup
           </p>
           <span className="text-stone-300">

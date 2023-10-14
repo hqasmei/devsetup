@@ -33,7 +33,7 @@ const UserNavbar = async () => {
           className="flex flex-row space-x-2 items-center justify-center"
         >
           <DevSetupLogo />
-          <span>devsetup</span>
+          <span className="font-bold">devsetup</span>
         </Link>
 
         {user && (
