@@ -6,7 +6,9 @@ import '../styles/globals.css';
 
 import { Inter } from 'next/font/google';
 
+import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'sonner';
 
 const inter = Inter({
@@ -45,6 +47,8 @@ export default function RootLayout({
         <main className="min-h-screen bg-background flex flex-col items-center">
           {children}
         </main>
+        <Footer />
+        <Analytics />
       </body>
     </html>
   );
