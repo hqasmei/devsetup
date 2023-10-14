@@ -10,6 +10,8 @@ import UserButton from './user-button';
 
 export const dynamic = 'force-dynamic';
 
+export const revalidate = 0;
+
 const UserNavbar = async () => {
   const supabase = createServerComponentClient({ cookies });
   const {

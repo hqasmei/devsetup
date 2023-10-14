@@ -9,7 +9,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import LogoutButton from '../components/logout-button';
 
 export const dynamic = 'force-dynamic';
-
+export const revalidate = 0;
 const Navbar = async () => {
   const supabase = createServerComponentClient({ cookies });
   const {

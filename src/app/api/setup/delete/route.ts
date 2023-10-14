@@ -1,14 +1,10 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-
-
 import { deleteUploadThingImage } from '@/actions/delete-uploadthing-image';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 
-
-
-
+export const revalidate = 0;
 
 export const dynamic = 'force-dynamic';
 
