@@ -4,20 +4,19 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../styles/globals.css';
 
-import { Young_Serif } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-import Navbar from '@/components/navbar';
 import { Toaster } from 'sonner';
-
-const youndSerif = Young_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-});
 
 export const metadata = {
   title: 'devsetup | discover & share your setup',
   description: '',
 };
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default function RootLayout({
   children,
@@ -25,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={youndSerif.className}>
+    <html lang="en" className={inter.className}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link

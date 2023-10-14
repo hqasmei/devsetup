@@ -1,5 +1,4 @@
 import React from 'react';
- 
 
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,11 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const ImageSlider = ({ images }: { images: any }) => {
   return (
     <Swiper
-      cssMode={true}
+      // cssMode={true}
       pagination={{
         dynamicBullets: true,
       }}
-      navigation={true}
+      // navigation={true}
       modules={[Pagination, Navigation]}
       id="swiper-1"
       className="flex w-full rounded-lg"
