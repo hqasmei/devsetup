@@ -5,7 +5,7 @@ import Navbar from '@/components/navbar';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 0
 const Home = async () => {
   const supabase = createServerComponentClient({ cookies });
 
