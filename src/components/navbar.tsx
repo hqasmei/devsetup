@@ -1,23 +1,25 @@
-import React, { cache } from 'react';
+import Reac from 'react';
+
+
 
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 
+
+
 import DevSetupLogo from '@/components/devsetup-logo';
-import { createServerComponentClient as _createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+
+
 
 import LogoutButton from '../components/logout-button';
+
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export const createServerComponentClient = cache(() => {
-  const cookieStore = cookies();
-  return _createServerComponentClient({ cookies: () => cookieStore });
-});
-
 const Navbar = async () => {
-  const supabase = createServerComponentClient();
+  const supabase = createServerComponentClient({ cookies });
   const {
     data: { user },
   } = await supabase.auth.getUser();
