@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { getURL } from '@/constants';
+import { getURL } from '@/lib/utils';
 import { Icon } from '@iconify/react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
