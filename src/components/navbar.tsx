@@ -1,25 +1,20 @@
 import Reac from 'react';
 
-
-
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-
-
 
 import DevSetupLogo from '@/components/devsetup-logo';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-
-
 import LogoutButton from '../components/logout-button';
-
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 const Navbar = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
   const {
     data: { user },
   } = await supabase.auth.getUser();

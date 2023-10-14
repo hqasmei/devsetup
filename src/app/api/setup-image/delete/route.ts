@@ -1,19 +1,14 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-
-
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-
-
-
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function POST(req: Request) {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { user },

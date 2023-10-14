@@ -7,7 +7,9 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function POST(req: Request) {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
   const {
     data: { user },
   } = await supabase.auth.getUser();

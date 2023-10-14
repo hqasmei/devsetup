@@ -10,7 +10,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 const AdminPage = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { user },
