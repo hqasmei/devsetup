@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { cache } from 'react';
 
 import { cookies } from 'next/headers';
 
 import AdminSection from '@/components/admin-section';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient as _createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-
+export const createServerComponentClient = cache(() => {
+  const cookieStore = cookies();
+  return _createServerComponentClient({ cookies: () => cookieStore });
+});
 
 const AdminPage = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

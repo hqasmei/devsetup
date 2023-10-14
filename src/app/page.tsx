@@ -1,13 +1,21 @@
+import { cache } from 'react';
+
 import { cookies } from 'next/headers';
 
 import HeroSection from '@/components/hero-section';
 import Navbar from '@/components/navbar';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient as _createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0
+export const revalidate = 0;
+
+export const createServerComponentClient = cache(() => {
+  const cookieStore = cookies();
+  return _createServerComponentClient({ cookies: () => cookieStore });
+});
+
 const Home = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerComponentClient();
 
   const {
     data: { user },

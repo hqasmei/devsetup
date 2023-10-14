@@ -1,16 +1,23 @@
+import { cache } from 'react';
+
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { getURL } from '@/lib/utils';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient as _createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0
+export const revalidate = 0;
+
+export const createServerComponentClient = cache(() => {
+  const cookieStore = cookies();
+  return _createServerComponentClient({ cookies: () => cookieStore });
+});
 export async function POST(request: Request) {
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const email = String(formData.get('email'));
-  const supabase = createRouteHandlerClient({ cookies });
+  const supabase = createServerComponentClient();
 
   const { error } = await supabase.auth.signInWithOtp({
     email: email,
