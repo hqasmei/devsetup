@@ -24,14 +24,16 @@ const Navbar = async () => {
         </div>
 
         {user ? (
-          <div className="flex items-center gap-4">
-            Hey, {user.email}!
+          <div className="flex flex-row items-center gap-4">
+            <Link href="/admin" className="hover:text-white/70 duration-300">
+              Admin
+            </Link>
             <LogoutButton />
           </div>
         ) : (
           <Link
             href="/login"
-            className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+            className="py-2 px-3 flex rounded no-underline bg-secondary/50 hover:bg-secondary/80 duration-300"
           >
             Login
           </Link>

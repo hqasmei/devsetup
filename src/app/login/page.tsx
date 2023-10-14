@@ -3,6 +3,7 @@ import Link from 'next/link';
 import DevSetupLogo from '@/components/devsetup-logo';
 import GithubButton from '@/components/github-button';
 import GoogleButton from '@/components/google-button';
+import ChevronLeft from '@/components/icons/chevron-left';
 
 import Messages from './messages';
 
@@ -11,23 +12,9 @@ const Login = () => {
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <Link
         href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+        className="absolute left-8 top-8 py-2 px-4 rounded  no-underline text-foreground bg-secondary/50 hover:bg-secondary/80 flex items-center group text-sm duration-300"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>{' '}
-        Back
+        <ChevronLeft /> Back
       </Link>
 
       <div className="flex flex-col w-full justify-center gap-6 text-foreground">
@@ -62,7 +49,7 @@ const Login = () => {
             Email
           </label>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            className="rounded px-4 py-2 bg-inherit border mb-6"
             name="email"
             placeholder="you@example.com"
             required

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
-import { getURL } from '@/constants';
+import { getURL } from   '@/lib/utils';
 
 const Messages = () => {
   const searchParams = useSearchParams();

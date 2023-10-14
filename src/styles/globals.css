@@ -4,25 +4,45 @@
 
 @layer base {
   :root {
-    --background: 200 20% 98%;
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+
     --btn-background: 200 10% 91%;
     --btn-background-hover: 200 10% 89%;
-    --foreground: 200 50% 3%;
-  }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: 200 50% 3%;
-      --btn-background: 200 10% 9%;
-      --btn-background-hover: 200 10% 12%;
-      --foreground: 200 20% 96%;
-    }
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
+
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 24 5.7% 82.9%;
   }
 }
 
 @layer base {
   * {
-    @apply border-foreground/20;
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
@@ -39,4 +59,73 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+#swiper-1 .swiper-pagination {
+  bottom: 0.5rem;
+}
+
+#swiper-1 .swiper-pagination-bullet {
+  opacity: 1;
+  background-color: gray;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.15rem;
+}
+
+#swiper-1 .swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: white;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.15rem;
+}
+
+.swiper-button-next {
+  margin: 0rem;
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.swiper-button-next::after {
+  font-size: 14px; /* Adjust the font size as needed */
+  font-weight: bold;
+  color: gray; /* Change the color to your desired color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.swiper-button-prev {
+  margin: 0rem;
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.swiper-button-prev::after {
+  font-size: 14px; /* Adjust the font size as needed */
+  font-weight: bold;
+  color: gray; /* Change the color to your desired color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.swiper-button-disabled {
+  display: none;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: white; /* Change the color on hover */
 }

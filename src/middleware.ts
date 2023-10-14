@@ -8,7 +8,22 @@ export async function middleware(req: NextRequest) {
   // Create a Supabase client configured to use cookies
   const supabase = createMiddlewareClient({ req, res });
 
-  await supabase.auth.getSession();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  return res;
+  if (session) {
+    return res;
+  }
+
+  // Auth condition not met, redirect to login page.
+  const redirectUrl = req.nextUrl.clone();
+  redirectUrl.pathname = '/login';
+  redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
+  return NextResponse.redirect(redirectUrl);
 }
+
+export const config = {
+  // list all the pages you want protected here
+  matcher: ['/admin'],
+};

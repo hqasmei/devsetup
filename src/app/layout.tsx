@@ -1,6 +1,13 @@
+import '@uploadthing/react/styles.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import '../styles/globals.css';
 
 import { Young_Serif } from 'next/font/google';
+
+import Navbar from '@/components/navbar';
+import { Toaster } from 'sonner';
 
 const youndSerif = Young_Serif({
   subsets: ['latin'],
@@ -35,6 +42,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Toaster position="top-center" richColors />
         <main className="min-h-screen bg-background flex flex-col items-center">
           {children}
         </main>
