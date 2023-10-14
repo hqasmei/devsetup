@@ -25,11 +25,11 @@ const HeroSection = () => {
 
         <img
           alt="Hero"
-          className="w-full md:w-1/2 object-cover rounded mt-8 md:mt-0 md:ml-6"
+          className="w-full md:w-1/2 object-cover rounded-2xl mt-8 md:mt-0 md:ml-6 border p-2"
           height="400"
-          src="https://res.cloudinary.com/duud9d8dv/image/upload/v1694494048/Screenshot_2023-09-11_at_9.46.53_PM_ygdzlk.png"
+          src="https://res.cloudinary.com/duud9d8dv/image/upload/v1697264679/Screenshot_2023-10-13_at_11.23.48_PM_woojoc.png"
           style={{
-            aspectRatio: '600/400',
+            aspectRatio: '1130/818',
             objectFit: 'cover',
           }}
           width="600"

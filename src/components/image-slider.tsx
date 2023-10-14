@@ -18,7 +18,13 @@ const ImageSlider = ({ images }: { images: any }) => {
       {images.map((image: any, idx: any) => {
         return (
           <SwiperSlide key={idx}>
-            <img src={image.image_url} alt="" />
+            <div className="image-container w-full h-64">
+              <img
+                src={image.image_url}
+                alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
           </SwiperSlide>
         );
       })}

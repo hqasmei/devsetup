@@ -74,7 +74,7 @@ const AdminSection = ({ serverSetups }: { serverSetups: any }) => {
         </div>
       ) : (
         <div className="max-w-4xl flex  w-full justify-start  items-start mt-4">
-          <div className="grid grid-cols-3 gap-6 w-full">
+          <div className="grid grid-cols-2 gap-6 w-full">
             {setups.map((setup: any, idx: any) => {
               return <SetupCard key={idx} setup={setup} />;
             })}
