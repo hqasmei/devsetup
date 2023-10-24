@@ -8,11 +8,11 @@ import { Icon } from '@iconify/react';
 
 const Footer = () => {
   return (
-    <footer className="pt-3 pb-[74px] md:py-4 bg-background border-t  flex items-center justify-center">
+    <footer className="p-4 bg-background border-t  flex items-center justify-center">
       <div className="max-w-4xl w-full flex">
         <div className="flex flex-row justify-between items-center w-full">
           <p className="text-sm leading-5 text-zinc-400">
-            © Copyright 2023 devsetup.co
+            © Copyright 2023 DevSetup.
           </p>
           <div className="flex flex-row space-x-4 items-center">
             <Link href="https://twitter.com/hqasmei" target="_blank">

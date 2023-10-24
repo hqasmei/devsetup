@@ -4,19 +4,19 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../styles/globals.css';
 
-import { Inter } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 
 import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
+import MaxWidthWrapper from '@/components/max-width-wrapper';
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'sonner';
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin'],
 });
 
 export const metadata = {
-  title: 'devsetup | discover & share your setup',
+  title: 'DevSetup | Share your setup in seconds',
   description: '',
 };
 
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={manrope.className}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
@@ -44,10 +44,12 @@ export default function RootLayout({
       </head>
       <body>
         <Toaster position="top-center" richColors />
-        <main className="min-h-screen bg-background flex flex-col items-center">
-          {children}
-        </main>
-        <Footer />
+        <MaxWidthWrapper>
+          <main className="min-h-screen bg-background flex flex-col items-center">
+            {children}
+          </main>
+          <Footer />
+        </MaxWidthWrapper>
         <Analytics />
       </body>
     </html>

@@ -20,7 +20,7 @@ const Login = () => {
       <div className="flex flex-col w-full justify-center gap-6 text-foreground">
         <div className="flex items-center justify-center flex-col space-y-1">
           <DevSetupLogo />
-          <span className="text-xl font-bold">devsetup</span>
+          <span className="font-medium text-lg">DevSetup</span>
         </div>
 
         <div className="flex flex-row space-x-4 justify-between">
