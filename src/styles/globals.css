@@ -37,6 +37,16 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
 #swiper-1 .swiper-pagination {
   bottom: 0.5rem;
 }
