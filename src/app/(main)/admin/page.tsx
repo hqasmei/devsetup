@@ -2,7 +2,6 @@ import React from 'react';
 
 import { cookies } from 'next/headers';
 
-import AdminSection from '@/components/admin-section';
 import MaxWidthWrapper from '@/components/max-width-wrapper';
 import MobilePreview from '@/components/mobile-preview';
 import PhotoSection from '@/components/photo-section';
