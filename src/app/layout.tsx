@@ -23,6 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en" className={manrope.className}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
         <link
           rel="icon"
           href="/icon?<generated>"
