@@ -1,24 +1,20 @@
-export type AddItemModalProps = {
-  setupId: string;
+import { UniqueIdentifier } from '@dnd-kit/core';
+
+export type DeleteProductModalProps = {
+  productId: string;
 };
 
-export type DeleteItemModalProps = {
-  itemId: string;
+export type UpdateProductModalProps = {
+  productId: string;
+  productName: string;
 };
 
-export type UpdateItemModalProps = {
-  itemId: string;
-  itemCategory: string;
-  itemType: string;
-  itemBrand: string;
-  itemModel: string;
+export type DNDType = {
+  id: UniqueIdentifier;
+  product: any;
 };
 
-export type DeleteSetupModalProps = {
-  setupId: string;
-};
-
-export type UpdateSetupModalProps = {
-  setupId: string;
-  setupName: string;
+export type ContainerProps = {
+  id: UniqueIdentifier;
+  product: any;
 };

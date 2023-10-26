@@ -2,45 +2,23 @@
 
 import React from 'react';
 
-
-
 import { OurFileRouter } from '@/app/api/uploadthing/core';
 import axios from 'axios';
 
-
-
 import { UploadDropzone } from '@uploadthing/react';
 
+const Dropzone = () => {
+  const handleUploadComplete = async (res: any) => {
+    try {
+      const values = { imageUrl: res[0].fileUrl };
+      // Do something with the response
+      await axios.post('/api/images/add', values);
 
-
-
-
-const Dropzone = ({ setupId }: { setupId: any }) => {
-  const handleUploadComplete = async ( res: any ) =>
-  {
-    console.log(res);
-    console.log( "here" );
-    // for (const item of res) {
-    //   const newImageUrl = item.fileUrl;
-    //   setFormData((prev: any) => {
-    //     if (prev.images) {
-    //       return { ...prev, images: [...prev.images, newImageUrl] };
-    //     } else {
-    //       return { ...prev, images: [newImageUrl] };
-    //     }
-    //   });
-    //   setImageUrls((prevImageUrls) => [...prevImageUrls, newImageUrl]);
-    // }
-    // try {
-    //   const values = { setupId: setupId, imageUrl: res[0].fileUrl };
-    //   // Do something with the response
-    //   await axios.post('/api/setup-image/add', values);
-
-    //   // console.log('Files: ', res);
-    //   // alert('Upload Completed');
-    // } catch {
-    //   console.log('Error getting response');
-    // }
+      // console.log('Files: ', res);
+      // alert('Upload Completed');
+    } catch {
+      console.log('Error getting response');
+    }
   };
 
   return (

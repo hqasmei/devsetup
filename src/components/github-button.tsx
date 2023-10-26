@@ -13,7 +13,7 @@ const GithubButton = () => {
     supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${getURL()}auth/callback`,
+        redirectTo: `${getURL()}api/auth/callback`,
       },
     });
   };

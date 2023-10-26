@@ -13,12 +13,12 @@ const ImageSlider = ({ images }: { images: any }) => {
       // navigation={true}
       modules={[Pagination, Navigation]}
       id="swiper-1"
-      className="flex w-full rounded-lg"
+      className="flex w-full"
     >
       {images.map((image: any, idx: any) => {
         return (
           <SwiperSlide key={idx}>
-            <div className="image-container w-full h-64">
+            <div className="image-container w-full h-48">
               <img
                 src={image.image_url}
                 alt=""

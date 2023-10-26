@@ -2,10 +2,10 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { getInitials } from   '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { getInitials } from '@/lib/utils';
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,10 @@ const UserButton = ({ props }: { props: any }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button
+          variant="ghost"
+          className="relative h-8 w-8 rounded-full"
+        >
           <Avatar className="h-8 w-8">
             <AvatarImage src={avatar_url} alt="" />
             <AvatarFallback>{initials}</AvatarFallback>
@@ -49,7 +52,7 @@ const UserButton = ({ props }: { props: any }) => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <form action="/auth/sign-out" method="post" className="w-full">
+          <form action="/api/auth/sign-out" method="post" className="w-full">
             <button className="w-full items-start flex">Logout</button>
           </form>
         </DropdownMenuItem>

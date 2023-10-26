@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { Button } from '@/components/ui/button';
+
 const LogoutButton = () => {
   return (
-    <form action="/auth/sign-out" method="post">
-      <button className="py-2 px-4 rounded no-underline  bg-secondary/50 hover:bg-secondary/80 duration-300">
+    <form action="/api/auth/sign-out" method="post">
+      <Button type="submit" variant="outline" className="bg-transparent/40">
         Logout
-      </button>
+      </Button>
     </form>
   );
 };

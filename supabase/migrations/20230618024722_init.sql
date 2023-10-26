@@ -28,44 +28,23 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
 
+ 
 /**
-* SETUPS
-* This table contains information about setups created by users.
+* PRODUCTS
 */
-create table setups (
-  setup_id uuid default gen_random_uuid() primary key,
-  name text not null,  -- Name of the setup
-  user_id uuid references users(id) not null  -- User who created the setup
+create table products (
+  product_id uuid default gen_random_uuid() primary key,
+  product_name text not null,
+  setup_id uuid references users(id) not null, -- Reference to the user's setup
+  position integer not null
 );
-
-/**
-* SETUP_ITEMS
-* This table links items to setups.
-*/
-create table setup_items (
-  setup_item_id uuid default gen_random_uuid() primary key,
-  setup_id uuid references setups(setup_id) not null,
-  category text,
-  type text,
-  brand text,
-  model text,
-  owner_id uuid references users(id) not null -- Establish a foreign key relationship with users
-);
-
-/**
-* Allow users to add items to their setups.
-* This policy allows users to insert items into setups that they own.
-*/
-create policy "Can add items to own setups" on setup_items for insert with check (auth.uid() = (select user_id from setups where setup_id = setup_items.setup_id));
-
-/**
+ 
+ /**
 * SETUP_IMAGES
 * This table links images to setups.
 */
 create table setup_images (
   setup_image_id uuid default gen_random_uuid() primary key,
-  setup_id uuid references setups(setup_id) not null,
+  user_id uuid references setups(setup_id) not null,
   image_url text -- URL of the setup image (string)
 );
-
- 

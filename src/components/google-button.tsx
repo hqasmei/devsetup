@@ -13,7 +13,7 @@ const GoogleButton = () => {
     supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${getURL()}auth/callback`,
+        redirectTo: `${getURL()}api/auth/callback`,
       },
     });
   };

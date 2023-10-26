@@ -8,6 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import Dropzone from '@/components/dropzone';
 import ChevronLeft from '@/components/icons/chevron-left';
+import { UploadButton } from '@/lib/uploadthing';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export default function PhotoSection() {
@@ -19,13 +20,15 @@ export default function PhotoSection() {
 
   useEffect(() => {
     const getImages = async () => {
-      // This assumes you have a `todos` table in Supabase. Check out
-      // the `Create Table and seed with data` section of the README 👇
-      // https://github.com/vercel/next.js/blob/canary/examples/with-supabase/README.md
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
       const { data } = await supabase
-        .from('setup_images')
-        .select()
-        .eq('setup_id', params.setupId);
+        .from('images')
+        .select('*')
+        .eq('user_id', user?.id);
+
       if (data) {
         setImages(data);
       }
@@ -35,23 +38,14 @@ export default function PhotoSection() {
   }, [supabase, setImages]);
 
   return (
-    <div className="text-white flex flex-col items-center w-full">
-      <div className="max-w-4xl flex  flex-col w-full justify-start  items-start pt-4">
-        <button
-          onClick={() => router.back()}
-          className=" no-underline text-foreground   flex items-center group text-sm "
-        >
-          <ChevronLeft />
-          <span>Back</span>
-        </button>
-        <span className="text-4xl my-10">Add your setup photos</span>
+    <div className="w-full md:w-1/2 h-screen border-r p-4 items-center justify-start flex flex-col">
+      <div className="max-w-xl flex  flex-col w-full justify-start  items-start">
+        <span className="text-lg font-bold my-2 text-center w-full items-center justify-center">
+          Add your setup photos
+        </span>
         <div className="w-full grid grid-cols-3 gap-4">
-          <Dropzone setupId={params.setupId} />
-          {/* <div className="text-white flex flex-col items-center w-full px-4 md:px-0">
-            <div className="max-w-4xl flex flex-1 w-full flex-col items-start h-48">
-              <Dropzone setupId={params.setupId} />
-            </div>
-          </div> */}
+          <Dropzone />
+
           {images.map((image, idx) => {
             return (
               <div
