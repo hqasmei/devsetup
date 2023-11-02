@@ -20,7 +20,7 @@ const MobilePreview = ({ user }: { user: any }) => {
 
       const { data } = await supabase
         .from('products')
-        .select()
+        .select('*')
         .eq('user_id', user?.id);
 
       if (data) {
@@ -86,13 +86,13 @@ const MobilePreview = ({ user }: { user: any }) => {
   }, [products, setProducts, setImages]);
 
   return (
-    <div className="hidden md:flex md:w-1/2 items-center justify-center py-28 fixed top-0 right-0 h-screen">
-      <div className="relative  border-[14px] border-forground rounded-[2.5rem] lg:rounded-[3.5rem] w-64 lg:w-80 xl:w-[20rem] aspect-[9/19] overflow-hidden max-w-sm mx-auto">
+    <div className="hidden md:flex md:w-1/2 items-start justify-center h-screen py-12 ">
+      <div className="relative border-[14px] border-zinc-800 rounded-[2.5rem] lg:rounded-[3.5rem] w-auto aspect-[9/19] overflow-hidden  max-w-[20rem] min-w-[20rem] mx-auto">
         <div className="flex flex-col">
           {images.length != 0 ? (
             <div className="text-white flex flex-col w-full pt-4  sm:px-0 items-start">
               <div className="flex  w-full">
-                <ImageSlider images={images} />
+                <ImageSlider isRounded={false} images={images} height="170px" />
               </div>
             </div>
           ) : (
@@ -129,13 +129,6 @@ const MobilePreview = ({ user }: { user: any }) => {
               />
               <span className="text-sm ">{user.user_metadata.full_name}</span>
             </div>
-            {products.map((product, idx) => {
-              return (
-                <div key={idx} className="border rounded flex">
-                  <span className="text-xs p-2">{product.product_name}</span>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>

@@ -17,13 +17,14 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { productId, productName } = body;
-    console.log(productId, productName);
+    const { productId, productCategory, productName, productLink } = body;
 
     const { data, error } = await supabase
       .from('products')
       .update({
+        product_category: productCategory,
         product_name: productName,
+        product_link: productLink,
       })
       .eq('product_id', productId)
       .select();

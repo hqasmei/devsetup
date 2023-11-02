@@ -1,15 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'res.cloudinary.com',
-      'avatars.githubusercontent.com',
-      'utfs.io',
-      'lh3.googleusercontent.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'piwhuvwtovtegrqdwnfh.supabase.co',
+      },
     ],
-  },
-  experimental: {
-    serverActions: true,
   },
 };
 

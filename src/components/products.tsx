@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useAddProductModal } from '@/components/modals/add-product-modal';
 import ProductCard from '@/components/product-card';
 import { Button } from '@/components/ui/button';
-import { DNDType } from '@/lib/types';
+import { ProductDNDType } from '@/lib/types';
 import {
   closestCenter,
   DndContext,
@@ -33,7 +33,7 @@ import axios from 'axios';
 const Products = () => {
   const supabase = createClientComponentClient();
   const [products, setProducts] = useState<any[]>([]);
-  const [containers, setContainers] = useState<DNDType[]>([]);
+  const [containers, setContainers] = useState<ProductDNDType[]>([]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const { setShowAddProductModal, AddProductModal } = useAddProductModal();
@@ -162,7 +162,7 @@ const Products = () => {
   return (
     <>
       <AddProductModal />
-      <div className="w-full md:w-1/2 h-screen border-r p-6 items-center justify-start flex flex-col">
+      <div className="w-full md:w-1/2 h-screen border-r border-zinc-800 p-6 items-center justify-start flex flex-col">
         <div className="flex w-full items-center justify-center md:max-w-xl">
           <Button
             onClick={() => setShowAddProductModal(true)}
@@ -210,7 +210,9 @@ const Products = () => {
             </SortableContext>
           </DndContext>
         </div>
-        {containers.length == 0 && <div className='py-24 font-bold text-2xl'>Add your first item!</div>}
+        {containers.length == 0 && (
+          <div className="py-24 font-bold text-2xl">Add your first item!</div>
+        )}
       </div>
     </>
   );

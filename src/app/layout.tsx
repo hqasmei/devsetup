@@ -1,4 +1,3 @@
-import '@uploadthing/react/styles.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -20,7 +19,11 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en" className={manrope.className}>
+    <html
+      lang="en"
+      className={manrope.className}
+      suppressHydrationWarning={true}
+    >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -37,7 +40,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           sizes="<generated>"
         />
       </head>
-      <body>
+      <body className="text-foreground">
         <Toaster />
         {children}
         <Analytics />

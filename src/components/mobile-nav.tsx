@@ -13,7 +13,7 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
     useNavigation();
 
   return (
-    <div className="w-full flex flex-col justify-center items-center md:hidden fixed top-0">
+    <div className="w-full flex flex-col justify-center items-center md:hidden fixed top-0 bg-background">
       <div className="w-full max-w-4xl flex justify-between items-center px-4 text-sm text-foreground border-b border-b-foreground/10 h-12">
         <Link
           href="/admin"
@@ -53,14 +53,14 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
       <div className="w-full maxW-4xl flex flex-row space-x-8 items-center px-4 text-sm text-foreground border-b border-b-foreground/10">
         <Link
           href="/admin"
-          className="flex flex-col items-center justify-center relative py-2  space-y-1"
+          className="flex flex-col items-center justify-center relative py-2  space-y-1 group"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className={`${isSetupActive ? '' : 'text-muted-foreground'}`}
+            className={`group-hover:text-foreground  duration-200 ${isSetupActive ? '' : 'text-muted-foreground'}`}
           >
             <g
               fill="none"
@@ -76,7 +76,7 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
           </svg>
 
           <span
-            className={`font-semibold ${
+            className={`font-semibold group-hover:text-foreground  duration-200 ${
               isSetupActive ? '' : 'text-muted-foreground'
             }`}
           >
@@ -92,14 +92,14 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
         </Link>
         <Link
           href="/admin/products"
-          className="flex flex-col items-center justify-center relative py-2  space-y-1"
+          className="flex flex-col items-center justify-center relative py-2  space-y-1 group"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className={`${isProductsActive ? '' : 'text-muted-foreground'}`}
+            className={`group-hover:text-foreground  duration-200 ${isProductsActive ? '' : 'text-muted-foreground'}`}
           >
             <g
               fill="none"
@@ -116,7 +116,7 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
           </svg>
 
           <span
-            className={`font-semibold ${
+            className={`font-semibold group-hover:text-foreground  duration-200 ${
               isProductsActive ? '' : 'text-muted-foreground'
             }`}
           >
@@ -132,14 +132,14 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
         </Link>
         <Link
           href="/admin/analytics"
-          className="flex flex-col items-center justify-center relative py-2  space-y-1"
+          className="flex flex-col items-center justify-center relative py-2  space-y-1 group"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className={`${isAnalyticsActive ? '' : 'text-muted-foreground'}`}
+            className={`group-hover:text-foreground  duration-200 ${isAnalyticsActive ? '' : 'text-muted-foreground'}`}
           >
             <g
               fill="none"
@@ -153,7 +153,7 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
             </g>
           </svg>
           <span
-            className={`font-semibold ${
+            className={`font-semibold group-hover:text-foreground  duration-200 ${
               isAnalyticsActive ? '' : 'text-muted-foreground'
             }`}
           >

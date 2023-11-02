@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react';
 
 const Footer = () => {
   return (
-    <footer className="p-4 bg-background border-t  flex items-center justify-center">
+    <footer className="p-4 bg-background border-t border-zinc-800  flex items-center justify-center">
       <div className="max-w-4xl w-full flex">
         <div className="flex flex-row justify-between items-center w-full">
           <p className="text-sm leading-5 text-zinc-400">

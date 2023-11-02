@@ -3,22 +3,30 @@ import React from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const ImageSlider = ({ images }: { images: any }) => {
+const ImageSlider = ({
+  images,
+  height,
+  isRounded,
+}: {
+  images: any;
+  height: string;
+  isRounded: boolean;
+}) => {
+  const roundedClass = isRounded ? 'sm:rounded-xl' : '';
+
   return (
     <Swiper
-      // cssMode={true}
       pagination={{
         dynamicBullets: true,
       }}
-      // navigation={true}
       modules={[Pagination, Navigation]}
       id="swiper-1"
-      className="flex w-full"
+      className={`flex w-full ${roundedClass}`}
     >
       {images.map((image: any, idx: any) => {
         return (
           <SwiperSlide key={idx}>
-            <div className="image-container w-full h-48">
+            <div className="image-container w-full" style={{ height: height }}>
               <img
                 src={image.image_url}
                 alt=""

@@ -1,13 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-
-
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-
-
-
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -23,14 +17,16 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { productName } = body;
+    const { productCategory, productName, productLink } = body;
 
     const { data, error } = await supabase
       .from('products')
       .insert([
         {
           user_id: user?.id,
+          product_category: productCategory,
           product_name: productName,
+          product_link: productLink,
           position: 0,
         },
       ])

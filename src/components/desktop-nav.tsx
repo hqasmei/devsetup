@@ -24,14 +24,14 @@ const DesktopNav = ({ user, users }: { user: any; users: any }) => {
           </Link>
           <Link
             href="/admin"
-            className="flex flex-row space-x-2 items-center justify-center"
+            className="flex flex-row space-x-2 items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              className={`${isSetupActive ? '' : 'text-muted-foreground'}`}
+              className={`group-hover:text-foreground  duration-200 ${isSetupActive ? '' : 'text-muted-foreground'}`}
             >
               <g
                 fill="none"
@@ -47,7 +47,7 @@ const DesktopNav = ({ user, users }: { user: any; users: any }) => {
             </svg>
 
             <span
-              className={`font-semibold ${
+              className={`font-semibold group-hover:text-foreground  duration-200 ${
                 isSetupActive ? '' : 'text-muted-foreground'
               }`}
             >
@@ -56,14 +56,14 @@ const DesktopNav = ({ user, users }: { user: any; users: any }) => {
           </Link>
           <Link
             href="/admin/products"
-            className="flex flex-row space-x-2 items-center justify-center"
+            className="flex flex-row space-x-2 items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              className={`${isProductsActive ? '' : 'text-muted-foreground'}`}
+              className={`group-hover:text-foreground  duration-200 ${isProductsActive ? '' : 'text-muted-foreground'}`}
             >
               <g
                 fill="none"
@@ -80,7 +80,7 @@ const DesktopNav = ({ user, users }: { user: any; users: any }) => {
             </svg>
 
             <span
-              className={`font-semibold ${
+              className={`font-semibold group-hover:text-foreground  duration-200 ${
                 isProductsActive ? '' : 'text-muted-foreground'
               }`}
             >
@@ -89,14 +89,14 @@ const DesktopNav = ({ user, users }: { user: any; users: any }) => {
           </Link>
           <Link
             href="/admin/analytics"
-            className="flex flex-row space-x-2 items-center justify-center"
+            className="flex flex-row space-x-2 items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              className={`${isAnalyticsActive ? '' : 'text-muted-foreground'}`}
+              className={`group-hover:text-foreground  duration-200 ${isAnalyticsActive ? '' : 'text-muted-foreground'}`}
             >
               <g
                 fill="none"
@@ -110,7 +110,7 @@ const DesktopNav = ({ user, users }: { user: any; users: any }) => {
               </g>
             </svg>
             <span
-              className={`font-semibold ${
+              className={`font-semibold group-hover:text-foreground  duration-200 ${
                 isAnalyticsActive ? '' : 'text-muted-foreground'
               }`}
             >

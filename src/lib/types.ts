@@ -6,15 +6,19 @@ export type DeleteProductModalProps = {
 
 export type UpdateProductModalProps = {
   productId: string;
+  productCategory: string;
   productName: string;
+  productLink: string;
 };
 
-export type DNDType = {
+export type ProductDNDType = {
   id: UniqueIdentifier;
   product: any;
 };
 
-export type ContainerProps = {
+export type ImageDNDType = {
   id: UniqueIdentifier;
-  product: any;
+  image: any;
 };
+
+ 

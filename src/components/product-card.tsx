@@ -6,19 +6,17 @@ import { useDeleteProductModal } from '@/components/modals/delete-product-modal'
 import { useUpdateProductModal } from '@/components/modals/update-product-modal';
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ContainerProps } from '@/lib/types';
+import { ProductDNDType } from '@/lib/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Icon } from '@iconify/react';
 import clsx from 'clsx';
 
-const ProductCard = ({ id, product }: ContainerProps) => {
+const ProductCard = ({ id, product }: ProductDNDType) => {
   const {
     attributes,
     setNodeRef,
@@ -42,7 +40,9 @@ const ProductCard = ({ id, product }: ContainerProps) => {
     useUpdateProductModal({
       props: {
         productId: product.product_id,
+        productCategory: product.product_category,
         productName: product.product_name,
+        productLink: product.product_link,
       },
     });
 
@@ -58,7 +58,7 @@ const ProductCard = ({ id, product }: ContainerProps) => {
         ref={setNodeRef}
         style={style}
         className={clsx(
-          'relative  flex flex-row ',
+          'relative  flex flex-row border border-zinc-800',
           // isDragging && 'opacity-50',
         )}
       >
@@ -74,9 +74,13 @@ const ProductCard = ({ id, product }: ContainerProps) => {
           />
         </button>
         <div className="w-full">
-          <CardHeader className="flex flex-row justify-between items-center ">
-            <CardTitle>{product.product_name}</CardTitle>
-            <div className="flex flex-row space-x-1 items-center">
+          <CardHeader className="flex flex-row justify-between items-end">
+            <div className="flex flex-col space-y-1">
+              <CardDescription>{product.product_category}</CardDescription>
+              <CardTitle>{product.product_name}</CardTitle>
+            </div>
+
+            <div className="flex flex-row space-x-1">
               <button
                 onClick={() => setShowUpdateProductModal(true)}
                 className="duration-300  hover:bg-zinc-700 p-1 rounded"
@@ -85,23 +89,12 @@ const ProductCard = ({ id, product }: ContainerProps) => {
               </button>
               <button
                 onClick={() => setShowDeleteProductModal(true)}
-                className="duration-300  hover:bg-red-700 p-1 rounded"
+                className="duration-300  hover:bg-red-900 p-1 rounded"
               >
                 <Icon icon="lucide:trash-2" width="20" height="20" />
               </button>
             </div>
-
-            {/* <CardDescription>category</CardDescription> */}
           </CardHeader>
-          {/* <CardContent className='flex flex-row justify-between'>
-            <p>Card Content</p>
-            <button
-              onClick={() => setShowDeleteProductModal(true)}
-              className="duration-300  hover:bg-red-700 p-1 rounded"
-            >
-              <Icon icon="lucide:trash-2" width="20" height="20" />
-            </button>
-          </CardContent> */}
         </div>
       </Card>
     </>
@@ -109,27 +102,3 @@ const ProductCard = ({ id, product }: ContainerProps) => {
 };
 
 export default ProductCard;
-
-{
-  /* <div className="flex flex-row w-full justify-between p-2 bg-foreground/5 rounded">
-        <span>{product.product_name}</span>
-        <div className="flex flex-row space-x-2">
-          <button onClick={() => setShowUpdateProductModal(true)}>
-            <Icon
-              icon="lucide:pen-square"
-              className="text-stone-400 hover:text-stone-300"
-              width="24"
-              height="24"
-            />
-          </button>
-          <button onClick={() => setShowDeleteProductModal(true)}>
-            <Icon
-              icon="lucide:trash-2"
-              className="text-red-800 hover:text-red-600"
-              width="24"
-              height="24"
-            />
-          </button>
-        </div>
-      </div> */
-}

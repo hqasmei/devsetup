@@ -40,9 +40,17 @@ import * as z from 'zod';
 
 const formSchema = z.object({
   productId: z.string(),
+  productCategory: z.string().min(1, {
+    message: 'Category is required.',
+  }),
   productName: z.string().min(1, {
     message: 'Name is required.',
   }),
+  productLink: z
+    .string()
+    .url('This is not a url.')
+    .optional()
+    .or(z.literal('')),
 });
 
 function UpdateProductModalHelper({
@@ -60,7 +68,9 @@ function UpdateProductModalHelper({
     resolver: zodResolver(formSchema),
     defaultValues: {
       productId: props?.productId,
+      productCategory: props?.productCategory,
       productName: props?.productName,
+      productLink: props?.productLink,
     },
   });
 
@@ -88,12 +98,43 @@ function UpdateProductModalHelper({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
+              name="productCategory"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="col-span-2 md:col-span-1">
+                  <FormLabel>
+                    Category <span className="text-red-600">*</span>
+                  </FormLabel>
+
+                  <Select disabled={isLoading} onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger >
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent >
+                      <SelectGroup >
+                        {Object.keys(categoryItems).map((category) => (
+                          <SelectItem key={category} value={category}>
+                            <div className="flex flex-row items-center space-x-2">
+                              <span>{category}</span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+
+            <FormField
               name="productName"
               control={form.control}
               render={({ field }) => (
                 <FormItem className="col-span-2 md:col-span-1">
                   <FormLabel>
-                    Name<span className="text-red-600">*</span>
+                    Name <span className="text-red-600">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -106,7 +147,34 @@ function UpdateProductModalHelper({
               )}
             />
 
+            <FormField
+              name="productLink"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="col-span-2 md:col-span-1">
+                  <FormLabel>Link</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="https://"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
             <div className="w-full flex justify-center space-x-6">
+              <Button
+                size="lg"
+                variant="outline"
+                type="button"
+                disabled={isLoading}
+                className="w-full"
+                onClick={() => setShowUpdateProductModal(false)}
+              >
+                Cancel
+              </Button>
               <Button
                 size="lg"
                 type="submit"
@@ -121,16 +189,6 @@ function UpdateProductModalHelper({
                 ) : (
                   <span>Save</span>
                 )}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                type="button"
-                disabled={isLoading}
-                className="w-full"
-                onClick={() => setShowUpdateProductModal(false)}
-              >
-                Cancel
               </Button>
             </div>
           </form>
