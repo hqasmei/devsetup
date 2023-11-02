@@ -35,16 +35,20 @@ create trigger on_auth_user_created
 create table products (
   product_id uuid default gen_random_uuid() primary key,
   product_name text not null,
-  setup_id uuid references users(id) not null, -- Reference to the user's setup
-  position integer not null
+  product_link text not null,
+  product_category text not null,
+  user_id uuid references users(id) not null,  
+  position integer not null,
+  created_at timestamp with time zone not null default now()
 );
  
  /**
-* SETUP_IMAGES
-* This table links images to setups.
+* IMAGES 
 */
-create table setup_images (
-  setup_image_id uuid default gen_random_uuid() primary key,
-  user_id uuid references setups(setup_id) not null,
-  image_url text -- URL of the setup image (string)
+create table images (
+  image_id uuid default gen_random_uuid() primary key,
+  user_id uuid references users(id) not null,
+  image_url text not null,
+  position integer not null,
+  created_at timestamp with time zone not null default now()
 );

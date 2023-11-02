@@ -2,13 +2,21 @@
 
 import React from 'react';
 
+
+
 import Image from 'next/image';
+
+
 
 import { ImageDNDType } from '@/lib/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Icon } from '@iconify/react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+
+
+
+
 
 const ImageCard = ({ id, image }: ImageDNDType) => {
   const {
@@ -38,7 +46,7 @@ const ImageCard = ({ id, image }: ImageDNDType) => {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
+ 
   return (
     <div
       ref={setNodeRef}

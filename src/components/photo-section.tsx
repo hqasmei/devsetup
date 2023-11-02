@@ -83,8 +83,16 @@ export default function PhotoSection() {
         },
         (payload) => {
           if (payload.eventType === 'INSERT') {
-            const newImage = [payload.new] as ImageDNDType[]; // Add the type assertion here
-            setContainers((prevContainers) => [...prevContainers, ...newImage]);
+            const newImage = payload.new;
+            const transformedImage = {
+              id: 'container-' + newImage.image_id,
+              image: newImage,
+            };
+
+            setContainers((prevContainers) => [
+              ...prevContainers,
+              transformedImage,
+            ]);
           } else if (payload.eventType === 'DELETE') {
             // Handle delete event here
             const deletedId = payload.old.image_id; // Use the correct column name
@@ -96,12 +104,13 @@ export default function PhotoSection() {
             );
           } else if (payload.eventType === 'UPDATE') {
             // Handle update event here
-            const updatedImage = payload.new as ImageDNDType; // Add the type assertion here
+            const updatedImage = payload.new;
+
             setContainers(
               (prevContainers) =>
                 prevContainers.map((item) =>
-                  item.image.image_id === updatedImage.image.image_id
-                    ? { id: item.id, image: updatedImage }
+                  item.image.image_id === updatedImage.image_id
+                    ? { id: item.image.image_id, image: updatedImage }
                     : item,
                 ) as ImageDNDType[], // Add the type assertion here
             );
