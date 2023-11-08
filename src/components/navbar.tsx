@@ -4,18 +4,16 @@ import Link from 'next/link';
 import DevSetupLogo from '@/components/devsetup-logo';
 import LogoutButton from '@/components/logout-button';
 import { Button } from '@/components/ui/button';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+import { createClient } from '@/utils/supabase/server';
 
 const Navbar = async () => {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
   return (
     <nav className="w-full flex justify-center h-16">
       <div className="w-full  flex justify-between items-center text-sm text-foreground">
@@ -32,7 +30,7 @@ const Navbar = async () => {
             <LogoutButton />
           </div>
         ) : (
-          <Button asChild variant="outline" className='bg-transparent/20'>
+          <Button asChild variant="outline" className="bg-transparent/20">
             <Link href="/login">Login</Link>
           </Button>
         )}

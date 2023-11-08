@@ -5,10 +5,12 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import ImageSlider from '@/components/image-slider';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Product } from '@/lib/types';
+import { createClient } from '@/utils/supabase/client';
 
 const MobilePreview = ({ user }: { user: any }) => {
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
+
   const [products, setProducts] = useState<any[]>([]);
   const [images, setImages] = useState<any[]>([]);
 
@@ -40,6 +42,7 @@ const MobilePreview = ({ user }: { user: any }) => {
         .eq('user_id', user?.id);
 
       if (data) {
+        data.sort((a, b) => a.position - b.position);
         setImages(data);
       }
     };
@@ -85,12 +88,44 @@ const MobilePreview = ({ user }: { user: any }) => {
     };
   }, [products, setProducts, setImages]);
 
+  // Use reduce to group products by category
+  const productsByCategory: { [key: string]: Product[] } = products.reduce(
+    (result, product) => {
+      const { product_category } = product;
+      if (!result[product_category]) {
+        result[product_category] = [];
+      }
+      result[product_category].push(product);
+      return result;
+    },
+    {},
+  );
+
   return (
-    <div className="hidden md:flex md:w-1/2 items-start justify-center h-screen py-12 ">
-      <div className="relative border-[14px] border-zinc-800 rounded-[2.5rem] lg:rounded-[3.5rem] w-auto aspect-[9/19] overflow-hidden  max-w-[20rem] min-w-[20rem] mx-auto">
-        <div className="flex flex-col">
+    <div className="hidden md:flex md:w-1/2 items-start justify-center h-screen py-12">
+      <div className="relative border-[14px] border-zinc-800 rounded-[2.5rem] lg:rounded-[3rem] w-auto aspect-[9/19] overflow-hidden  max-w-[20rem] min-w-[20rem] mx-auto">
+        <div className="flex flex-col space-y-2">
+          <span className="flex justify-end  pr-4 pt-4">
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8m-4-6l-4-4l-4 4m4-4v13"
+                />
+              </svg>
+            </button>
+          </span>
           {images.length != 0 ? (
-            <div className="text-white flex flex-col w-full pt-4  sm:px-0 items-start">
+            <div className="text-white flex flex-col w-full   sm:px-0 items-start">
               <div className="flex  w-full">
                 <ImageSlider isRounded={false} images={images} height="170px" />
               </div>
@@ -118,7 +153,7 @@ const MobilePreview = ({ user }: { user: any }) => {
             </div>
           )}
 
-          <div className="grid grid-cols-1 gap-2 p-4">
+          <div className="grid grid-cols-1 gap-2 px-4">
             <div className="flex flex-row items-center space-x-2">
               <Image
                 src={user.user_metadata.avatar_url}
@@ -129,6 +164,21 @@ const MobilePreview = ({ user }: { user: any }) => {
               />
               <span className="text-sm ">{user.user_metadata.full_name}</span>
             </div>
+          </div>
+
+          <div className="px-4 flex flex-col space-y-2">
+            {Object.entries(productsByCategory).map(
+              ([category, categoryProducts]) => (
+                <div key={category}>
+                  <span className="font-bold text-sm">{category}</span>
+                  <ul className="font-thin text-sm list-inside list-disc">
+                    {categoryProducts.map((product) => (
+                      <li key={product.product_id}>{product.product_name}</li>
+                    ))}
+                  </ul>
+                </div>
+              ),
+            )}
           </div>
         </div>
       </div>

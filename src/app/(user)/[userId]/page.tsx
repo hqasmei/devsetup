@@ -2,56 +2,11 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import ImageSlider from '@/components/image-slider';
-import { Product } from '@/lib/types';
-
-const UserPreviewPage = ({
-  user,
-  images,
-  products,
-}: {
-  user: any;
-  images: any;
-  products: any;
-}) => {
-  let userData = null; // Initialize userData to null or some default value
-  if (user && user.user && user.user.user_metadata) {
-    userData = user.user.user_metadata;
-  }
-  const productsByCategory: { [key: string]: Product[] } = products.reduce(
-    (result: any, product: any) => {
-      const { product_category } = product;
-      if (!result[product_category]) {
-        result[product_category] = [];
-      }
-      result[product_category].push(product);
-      return result;
-    },
-    {},
-  );
+const UserPage = ({ params }: { params: { userId: string } }) => {
   return (
     <div className="flex h-screen justify-center">
       <div className="flex flex-col  w-full sm:max-w-lg">
-        <span className="flex justify-end py-4 px-8 sm:px-0">
-          <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8m-4-6l-4-4l-4 4m4-4v13"
-              />
-            </svg>
-          </button>
-        </span>
-        {images.length != 0 ? (
+        {/* {images.length != 0 ? (
           <div className="text-white flex flex-col w-full sm:px-0 items-start">
             <div className="flex  w-full">
               <ImageSlider isRounded={true} images={images} height="360px" />
@@ -108,10 +63,10 @@ const UserPreviewPage = ({
               </div>
             ),
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default UserPreviewPage;
+export default UserPage;

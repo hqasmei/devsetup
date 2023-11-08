@@ -1,17 +1,14 @@
-import React from 'react';
-
 export const metadata = {
-  title: 'DevSetup | Login',
+  title: 'TBD | DevSetup',
   description: '',
 };
 
-const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
+const UserLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center w-full">
       {children}
     </div>
-    
   );
 };
 
-export default LoginLayout;
+export default UserLayout;

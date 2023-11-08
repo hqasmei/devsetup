@@ -1,16 +1,14 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-export const dynamic = 'force-dynamic';
+import { createClient } from '@/utils/supabase/server';
 
 export async function POST(request: Request) {
   const requestUrl = new URL(request.url);
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createClient(cookieStore);
 
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
 
   return NextResponse.redirect(`${requestUrl.origin}/login`, {
     // a 301 status is required to redirect from a POST to a GET route

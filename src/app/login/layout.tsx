@@ -1,11 +1,11 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'DevSetup | Profile',
+  title: 'Login | DevSetup',
   description: '',
 };
 
-const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
+const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center w-full">
       {children}
@@ -13,4 +13,4 @@ const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default ProfileLayout;
+export default LoginLayout;

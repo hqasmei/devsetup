@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import DesktopNav from '@/components/desktop-nav';
 import MobileNav from '@/components/mobile-nav';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,7 +12,7 @@ export const revalidate = 0;
 
 const UserNavbar = async () => {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },

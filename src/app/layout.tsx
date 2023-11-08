@@ -3,25 +3,25 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../styles/globals.css';
 
-import { Manrope } from 'next/font/google';
-
 import { Analytics } from '@vercel/analytics/react';
+import { GeistSans } from 'geist/font';
 import { Toaster } from 'sonner';
 
-const manrope = Manrope({
-  subsets: ['latin'],
-});
+const defaultUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000';
 
 export const metadata = {
+  metadataBase: new URL(defaultUrl),
   title: 'DevSetup | Share your setup in seconds',
-  description: '',
+  description: 'The fastest way to share your setup.',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html
       lang="en"
-      className={manrope.className}
+      className={GeistSans.className}
       suppressHydrationWarning={true}
     >
       <head>

@@ -37,6 +37,12 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
 #swiper-1 .swiper-pagination {
   bottom: 0.5rem;
 }

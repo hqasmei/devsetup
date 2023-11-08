@@ -19,13 +19,11 @@ import {
 const UserButton = ({ props }: { props: any }) => {
   const { avatar_url, full_name, email } = props;
   const initials = getInitials(full_name);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="relative h-8 w-8 rounded-full"
-        >
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarImage src={avatar_url} alt="" />
             <AvatarFallback>{initials}</AvatarFallback>
@@ -53,7 +51,9 @@ const UserButton = ({ props }: { props: any }) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <form action="/api/auth/sign-out" method="post" className="w-full">
-            <button className="w-full items-start flex">Logout</button>
+            <button type="submit" className="w-full items-start flex">
+              Logout
+            </button>
           </form>
         </DropdownMenuItem>
       </DropdownMenuContent>

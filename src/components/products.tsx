@@ -6,6 +6,7 @@ import { useAddProductModal } from '@/components/modals/add-product-modal';
 import ProductCard from '@/components/product-card';
 import { Button } from '@/components/ui/button';
 import { ProductDNDType } from '@/lib/types';
+import { createClient } from '@/utils/supabase/client';
 import {
   closestCenter,
   DndContext,
@@ -27,11 +28,11 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import axios from 'axios';
 
 const Products = () => {
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
+
   const [products, setProducts] = useState<any[]>([]);
   const [containers, setContainers] = useState<ProductDNDType[]>([]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);

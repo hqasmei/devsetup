@@ -2,12 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 
+
+
 import { Button } from '@/components/ui/button';
 import UserPreviewPage from '@/components/user-preview-page';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/client';
+
+
+
+
 
 const PreviewButton = () => {
-  const supabase = createClientComponentClient();
+const supabase = createClient();
+
+
   const [user, setUser] = useState<any>();
   const [images, setImages] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
@@ -18,75 +26,75 @@ const PreviewButton = () => {
   };
   const containerClassName = isPreviewActive ? 'fixed' : 'hidden';
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data: userData, error: userError } =
-  //       await supabase.auth.getUser();
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
 
-  //     if (userData) {
-  //       const { data: productsData, error: productsError } = await supabase
-  //         .from('products')
-  //         .select()
-  //         .eq('user_id', userData.user?.id);
-  //       const { data: imagesData, error: imagesError } = await supabase
-  //         .from('images')
-  //         .select('*')
-  //         .eq('user_id', userData.user?.id);
+      if (userData) {
+        const { data: productsData, error: productsError } = await supabase
+          .from('products')
+          .select()
+          .eq('user_id', userData.user?.id);
+        const { data: imagesData, error: imagesError } = await supabase
+          .from('images')
+          .select('*')
+          .eq('user_id', userData.user?.id);
 
-  //       if (userData) {
-  //         setUser(userData);
-  //       }
+        if (userData) {
+          setUser(userData);
+        }
 
-  //       if (productsData) {
-  //         productsData.sort((a, b) => a.position - b.position);
-  //         setProducts(productsData);
-  //       }
+        if (productsData) {
+          productsData.sort((a, b) => a.position - b.position);
+          setProducts(productsData);
+        }
 
-  //       if (imagesData) {
-  //         setImages(imagesData);
-  //       }
-  //     }
-  //   };
+        if (imagesData) {
+          setImages(imagesData);
+        }
+      }
+    };
 
-  //   const productChanges = supabase
-  //     .channel('user data channel')
-  //     .on(
-  //       'postgres_changes',
-  //       {
-  //         event: '*',
-  //         schema: 'public',
-  //         table: 'products',
-  //       },
-  //       (payload) => {
-  //         if (payload.eventType === 'INSERT') {
-  //           const newProduct = [payload.new];
-  //           setProducts((prevProducts) => [...prevProducts, ...newProduct]);
-  //         } else if (payload.eventType === 'DELETE') {
-  //           // Handle delete event here
-  //           const deletedId = payload.old.product_id; // Use the correct column name
-  //           setProducts((prevProducts) =>
-  //             prevProducts.filter((item) => item.product_id !== deletedId),
-  //           );
-  //         } else if (payload.eventType === 'UPDATE') {
-  //           // Handle update event here
-  //           const updatedProduct = payload.new;
-  //           setProducts((prevProducts) =>
-  //             prevProducts.map((item) =>
-  //               item.product_id === updatedProduct.product_id
-  //                 ? updatedProduct
-  //                 : item,
-  //             ),
-  //           );
-  //         }
-  //       },
-  //     )
-  //     .subscribe();
+    const productChanges = supabase
+      .channel('user data channel')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'products',
+        },
+        (payload) => {
+          if (payload.eventType === 'INSERT') {
+            const newProduct = [payload.new];
+            setProducts((prevProducts) => [...prevProducts, ...newProduct]);
+          } else if (payload.eventType === 'DELETE') {
+            // Handle delete event here
+            const deletedId = payload.old.product_id; // Use the correct column name
+            setProducts((prevProducts) =>
+              prevProducts.filter((item) => item.product_id !== deletedId),
+            );
+          } else if (payload.eventType === 'UPDATE') {
+            // Handle update event here
+            const updatedProduct = payload.new;
+            setProducts((prevProducts) =>
+              prevProducts.map((item) =>
+                item.product_id === updatedProduct.product_id
+                  ? updatedProduct
+                  : item,
+              ),
+            );
+          }
+        },
+      )
+      .subscribe();
 
-  //   fetchData();
-  //   return () => {
-  //     supabase.removeChannel(productChanges);
-  //   };
-  // }, []);
+    fetchData();
+    return () => {
+      supabase.removeChannel(productChanges);
+    };
+  }, []);
 
   return (
     <>

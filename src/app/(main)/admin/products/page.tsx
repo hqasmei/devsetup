@@ -4,15 +4,11 @@ import { cookies } from 'next/headers';
 
 import MobilePreview from '@/components/mobile-preview';
 import Products from '@/components/products';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-export const dynamic = 'force-dynamic';
-
-export const revalidate = 0;
+import { createClient } from '@/utils/supabase/server';
 
 const ProductsPage = async () => {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },

@@ -5,15 +5,11 @@ import { cookies } from 'next/headers';
 import MaxWidthWrapper from '@/components/max-width-wrapper';
 import MobilePreview from '@/components/mobile-preview';
 import PhotoSection from '@/components/photo-section';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-export const dynamic = 'force-dynamic';
-
-export const revalidate = 0;
+import { createClient } from '@/utils/supabase/server';
 
 const SetupPage = async () => {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },

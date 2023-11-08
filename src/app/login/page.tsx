@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import DevSetupLogo from '@/components/devsetup-logo';
 import GithubButton from '@/components/github-button';
 import GoogleButton from '@/components/google-button';
@@ -18,7 +16,7 @@ const Login = () => {
           <span className="font-medium text-lg">DevSetup</span>
         </div>
 
-        <div className="flex flex-row space-x-4 justify-between">
+        <div className="flex flex-row space-x-4 justify-between  ">
           <GithubButton />
           <GoogleButton />
         </div>

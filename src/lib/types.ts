@@ -21,4 +21,11 @@ export type ImageDNDType = {
   image: any;
 };
 
- 
+export type Product = {
+  product_id: string;
+  product_name: string;
+  user_id: string;
+  position: number;
+  product_link: string;
+  product_category: string;
+};

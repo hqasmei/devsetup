@@ -4,13 +4,11 @@ import React from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
-import { getURL } from   '@/lib/utils';
-
 const Messages = () => {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
   const message = searchParams.get('message');
- 
+
   return (
     <>
       {error && (

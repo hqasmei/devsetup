@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { ImageDNDType } from '@/lib/types';
+import { createClient } from '@/utils/supabase/client';
 import {
   closestCenter,
   DndContext,
@@ -24,7 +25,6 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Loader2 } from 'lucide-react';
 
 import ImageCard from './image-card';
@@ -33,7 +33,8 @@ export default function PhotoSection() {
   const router = useRouter();
   const params = useParams();
   // Create a Supabase client configured to use cookies
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
+
   const [uploading, setUploading] = useState(false);
   const [containers, setContainers] = useState<ImageDNDType[]>([]);
   const [userId, setUserId] = useState<any>('');
