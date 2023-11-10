@@ -41,11 +41,6 @@ const UserButton = ({ props }: { props: any }) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
-            <Link href="/admin/profile" className="w-full hover:cursor-pointer">
-              Profile
-            </Link>
-          </DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

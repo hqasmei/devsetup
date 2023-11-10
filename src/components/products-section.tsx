@@ -30,17 +30,18 @@ import {
 } from '@dnd-kit/sortable';
 import axios from 'axios';
 
-const Products = () => {
+export default function ProductsSection() {
   const supabase = createClient();
 
   const [products, setProducts] = useState<any[]>([]);
   const [containers, setContainers] = useState<ProductDNDType[]>([]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   const { setShowAddProductModal, AddProductModal } = useAddProductModal();
+
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -87,7 +88,7 @@ const Products = () => {
       }));
 
       // Call an API endpoint to update the positions in the database
-      await axios.post('/api/product/update-position', {
+      await axios.post('/api/product/update/position', {
         newPositionOrder: newPositionOrder,
       });
     }
@@ -96,7 +97,8 @@ const Products = () => {
   };
 
   useEffect(() => {
-    const getProducts = async () => {
+    async function getProducts() {
+      setLoading(true);
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -116,8 +118,9 @@ const Products = () => {
             }))
             .sort((a: any, b: any) => a.product.position - b.product.position),
         );
+        setLoading(false);
       }
-    };
+    }
 
     const productChanges = supabase
       .channel('products channel')
@@ -154,11 +157,14 @@ const Products = () => {
       .subscribe();
 
     getProducts();
+    setIsMounted(true);
 
     return () => {
       supabase.removeChannel(productChanges);
     };
-  }, [supabase, products, setProducts]);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <>
@@ -200,8 +206,8 @@ const Products = () => {
                   {containers.map((container, idx) => {
                     return (
                       <ProductCard
-                        key={idx}
                         id={container.id}
+                        key={container.id}
                         product={container.product}
                       />
                     );
@@ -211,12 +217,10 @@ const Products = () => {
             </SortableContext>
           </DndContext>
         </div>
-        {containers.length == 0 && (
+        {!loading && containers.length == 0 && (
           <div className="py-24 font-bold text-2xl">Add your first item!</div>
         )}
       </div>
     </>
   );
-};
-
-export default Products;
+}

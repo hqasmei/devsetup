@@ -3,7 +3,7 @@ import React from 'react';
 import { cookies } from 'next/headers';
 
 import MobilePreview from '@/components/mobile-preview';
-import Products from '@/components/products';
+import ProductsSection from '@/components/products-section';
 import { createClient } from '@/utils/supabase/server';
 
 const ProductsPage = async () => {
@@ -16,7 +16,7 @@ const ProductsPage = async () => {
 
   return (
     <div className="flex flex-row w-full items-start">
-      <Products />
+      <ProductsSection />
       <MobilePreview user={user} />
     </div>
   );

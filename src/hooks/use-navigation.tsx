@@ -9,11 +9,13 @@ const useNavigation = () => {
   const [isSetupActive, setIsSetupActive] = useState(false);
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isAnalyticsActive, setIsAnalyticsActive] = useState(false);
+  const [isSettingsActive, setIsSettingsActive] = useState(false);
 
   useEffect(() => {
     setIsSetupActive(false);
     setIsProductsActive(false);
     setIsAnalyticsActive(false);
+    setIsSettingsActive(false);
 
     switch (pathname) {
       case '/admin':
@@ -25,6 +27,9 @@ const useNavigation = () => {
       case '/admin/analytics':
         setIsAnalyticsActive(true);
         break;
+      case '/admin/settings':
+        setIsSettingsActive(true);
+        break;
       default:
         break;
     }
@@ -34,6 +39,7 @@ const useNavigation = () => {
     isSetupActive,
     isProductsActive,
     isAnalyticsActive,
+    isSettingsActive,
   };
 };
 

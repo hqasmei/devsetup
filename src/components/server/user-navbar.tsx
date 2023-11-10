@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cookies } from 'next/headers';
 
-import DesktopNav from '@/components/desktop-nav';
-import MobileNav from '@/components/mobile-nav';
+import DesktopNav from '@/components/nav/desktop-nav';
+import MobileNav from '@/components/nav/mobile-nav';
 import { createClient } from '@/utils/supabase/server';
 
 export const dynamic = 'force-dynamic';

@@ -5,14 +5,16 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import ImageSlider from '@/components/image-slider';
+import { useShareSetupModal } from '@/components/modals/share-setup-modal';
 import { Product } from '@/lib/types';
 import { createClient } from '@/utils/supabase/client';
 
 const MobilePreview = ({ user }: { user: any }) => {
   const supabase = createClient();
-
   const [products, setProducts] = useState<any[]>([]);
   const [images, setImages] = useState<any[]>([]);
+
+  const { setShowShareSetupModal, ShareSetupModal } = useShareSetupModal();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -103,10 +105,11 @@ const MobilePreview = ({ user }: { user: any }) => {
 
   return (
     <div className="hidden md:flex md:w-1/2 items-start justify-center h-screen py-12">
-      <div className="relative border-[14px] border-zinc-800 rounded-[2.5rem] lg:rounded-[3rem] w-auto aspect-[9/19] overflow-hidden  max-w-[20rem] min-w-[20rem] mx-auto">
+      <div className="relative  border-[14px] border-zinc-800 rounded-[2.5rem] lg:rounded-[3rem] w-auto aspect-[9/19] overflow-hidden  max-w-[20rem] min-w-[20rem] mx-auto">
+        <ShareSetupModal />
         <div className="flex flex-col space-y-2">
           <span className="flex justify-end  pr-4 pt-4">
-            <button>
+            <button onClick={() => setShowShareSetupModal(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"

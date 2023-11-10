@@ -29,8 +29,13 @@ const ProductCard = ({ id, product }: ProductDNDType) => {
     data: {
       type: 'container',
     },
-  });
-
+  } );
+  
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+  
   const { setShowDeleteProductModal, DeleteProductModal } =
     useDeleteProductModal({
       props: { productId: product.product_id },
@@ -46,10 +51,6 @@ const ProductCard = ({ id, product }: ProductDNDType) => {
       },
     });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
   return (
     <>
       <DeleteProductModal />
@@ -63,14 +64,13 @@ const ProductCard = ({ id, product }: ProductDNDType) => {
         )}
       >
         <button
-          className={`p-0.5 ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+          className={`ml-3 my-6 rounded hover:bg-zinc-900 ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
           {...listeners}
         >
           <Icon
-            icon="clarity:drag-handle-line"
-            width="36"
-            height="36"
-            color="#FFFFFF"
+            icon="radix-icons:drag-handle-dots-2"
+            width="28"
+            height="28" 
           />
         </button>
         <div className="w-full">

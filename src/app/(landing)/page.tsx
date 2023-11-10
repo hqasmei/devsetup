@@ -1,5 +1,5 @@
 import HeroSection from '@/components/hero-section';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/nav/navbar';
 
 const Home = async () => {
   return (

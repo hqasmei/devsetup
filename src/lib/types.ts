@@ -29,3 +29,15 @@ export type Product = {
   product_link: string;
   product_category: string;
 };
+
+export type ImageProps = {
+  image_id: string;
+  user_id: string;
+  image_url: string;
+  created_at: string;
+  position: number;
+};
+
+export type PhotosSectionProps = {
+  input: ImageProps[];
+};

@@ -9,8 +9,12 @@ import UserButton from '@/components/user-button';
 import useNavigation from '@/hooks/use-navigation';
 
 const MobileNav = ({ user, users }: { user: any; users: any }) => {
-  const { isSetupActive, isProductsActive, isAnalyticsActive } =
-    useNavigation();
+  const {
+    isSetupActive,
+    isProductsActive,
+    isAnalyticsActive,
+    isSettingsActive,
+  } = useNavigation();
 
   return (
     <div className="w-full flex flex-col justify-center items-center md:hidden fixed top-0 bg-background">
@@ -60,7 +64,9 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className={`group-hover:text-foreground  duration-200 ${isSetupActive ? '' : 'text-muted-foreground'}`}
+            className={`group-hover:text-foreground  duration-200 ${
+              isSetupActive ? '' : 'text-muted-foreground'
+            }`}
           >
             <g
               fill="none"
@@ -99,7 +105,9 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className={`group-hover:text-foreground  duration-200 ${isProductsActive ? '' : 'text-muted-foreground'}`}
+            className={`group-hover:text-foreground  duration-200 ${
+              isProductsActive ? '' : 'text-muted-foreground'
+            }`}
           >
             <g
               fill="none"
@@ -139,7 +147,9 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className={`group-hover:text-foreground  duration-200 ${isAnalyticsActive ? '' : 'text-muted-foreground'}`}
+            className={`group-hover:text-foreground  duration-200 ${
+              isAnalyticsActive ? '' : 'text-muted-foreground'
+            }`}
           >
             <g
               fill="none"
@@ -162,6 +172,45 @@ const MobileNav = ({ user, users }: { user: any; users: any }) => {
           <span
             className={`${
               isAnalyticsActive
+                ? 'absolute z-10 w-[110%] bottom-0 h-[1px] bg-zinc-100 rounded-full'
+                : 'hidden'
+            }`}
+          ></span>
+        </Link>
+        <Link
+          href="/admin/settings"
+          className="flex flex-col items-center justify-center relative py-2  space-y-1 group"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            className={`group-hover:text-foreground  duration-200 ${
+              isSettingsActive ? '' : 'text-muted-foreground'
+            }`}
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            >
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+              <circle cx="12" cy="12" r="3" />
+            </g>
+          </svg>
+          <span
+            className={`font-semibold group-hover:text-foreground  duration-200 ${
+              isSettingsActive ? '' : 'text-muted-foreground'
+            }`}
+          >
+            Settings
+          </span>
+          <span
+            className={`${
+              isSettingsActive
                 ? 'absolute z-10 w-[110%] bottom-0 h-[1px] bg-zinc-100 rounded-full'
                 : 'hidden'
             }`}

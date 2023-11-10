@@ -43,16 +43,16 @@ const ImageCard = ({ id, image }: ImageDNDType) => {
     <div
       ref={setNodeRef}
       style={style}
-      className="text-white  flex flex-col items-center w-full md:px-0"
+      className="text-white  flex flex-col items-center w-full md:px-0  relative h-[200px]"
     >
-      <div className="max-w-6xl  flex flex-1 w-full flex-col items-start relative">
+      <div className="max-w-6xl  flex flex-1 w-full flex-col items-start">
         <Image
           priority
+          alt={image.image_url}
           src={image.image_url}
-          alt=""
-          width={1000}
-          height={1000}
-          className="rounded object-fill  h-48"
+          fill
+          sizes="100vh"
+          className="rounded object-cover"
         />
         <button
           className={`${

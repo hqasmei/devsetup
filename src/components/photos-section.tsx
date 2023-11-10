@@ -2,47 +2,31 @@
 
 import { useEffect, useState } from 'react';
 
-import { useParams, useRouter } from 'next/navigation';
+
 
 import { Button } from '@/components/ui/button';
 import { ImageDNDType } from '@/lib/types';
 import { createClient } from '@/utils/supabase/client';
-import {
-  closestCenter,
-  DndContext,
-  DragEndEvent,
-  DragStartEvent,
-  KeyboardSensor,
-  MouseSensor,
-  PointerSensor,
-  TouchSensor,
-  UniqueIdentifier,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-} from '@dnd-kit/sortable';
+import { closestCenter, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, UniqueIdentifier, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Loader2 } from 'lucide-react';
+
+
 
 import ImageCard from './image-card';
 
-export default function PhotoSection() {
-  const router = useRouter();
-  const params = useParams();
-  // Create a Supabase client configured to use cookies
+
+export default function PhotosSection() {
   const supabase = createClient();
 
   const [uploading, setUploading] = useState(false);
   const [containers, setContainers] = useState<ImageDNDType[]>([]);
   const [userId, setUserId] = useState<any>('');
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -51,6 +35,7 @@ export default function PhotoSection() {
 
   useEffect(() => {
     const getImages = async () => {
+      setLoading(true);
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -70,6 +55,7 @@ export default function PhotoSection() {
             }))
             .sort((a: any, b: any) => a.image.position - b.image.position),
         );
+        setLoading(false);
       }
     };
 
@@ -90,10 +76,11 @@ export default function PhotoSection() {
               image: newImage,
             };
 
-            setContainers((prevContainers) => [
-              ...prevContainers,
-              transformedImage,
-            ]);
+            setContainers((prevContainers) =>
+              [...prevContainers, transformedImage].sort(
+                (a: any, b: any) => a.image.position - b.image.position,
+              ),
+            );
           } else if (payload.eventType === 'DELETE') {
             // Handle delete event here
             const deletedId = payload.old.image_id; // Use the correct column name
@@ -103,28 +90,18 @@ export default function PhotoSection() {
                   (item) => item.image.image_id !== deletedId,
                 ) as ImageDNDType[], // Add the type assertion here
             );
-          } else if (payload.eventType === 'UPDATE') {
-            // Handle update event here
-            const updatedImage = payload.new;
-
-            setContainers(
-              (prevContainers) =>
-                prevContainers.map((item) =>
-                  item.image.image_id === updatedImage.image_id
-                    ? { id: item.image.image_id, image: updatedImage }
-                    : item,
-                ) as ImageDNDType[], // Add the type assertion here
-            );
           }
         },
       )
       .subscribe();
 
     getImages();
+    setIsMounted(true);
+
     return () => {
       supabase.removeChannel(imageChanges);
     };
-  }, [supabase, containers, setContainers]);
+  }, []);
 
   const handleFileUpload = () => {
     const fileInput = document.createElement('input');
@@ -216,6 +193,7 @@ export default function PhotoSection() {
         activeContainerIndex,
         overContainerIndex,
       );
+      console.log(newContainers);
       setContainers(newContainers);
 
       // Update the database positions based on the client-side order
@@ -244,6 +222,8 @@ export default function PhotoSection() {
 
     setActiveId(null);
   };
+
+  if (!isMounted) return null;
 
   return (
     <>
@@ -276,30 +256,28 @@ export default function PhotoSection() {
           )}
         </div>
         <div className="w-full mt-10 grid  grid-cols-2 justify-center gap-4 md:max-w-xl">
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext items={containers.map((i) => i.id)}>
-              {containers.length != 0 && (
-                <>
-                  {containers.map((container, idx) => {
-                    return (
-                      <ImageCard
-                        key={idx}
-                        id={container.id}
-                        image={container.image}
-                      />
-                    );
-                  })}
-                </>
-              )}
-            </SortableContext>
-          </DndContext>
+          {containers.length != 0 && (
+            <DndContext
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+              sensors={sensors}
+              collisionDetection={closestCenter}
+            >
+              <SortableContext items={containers.map((i) => i.id)}>
+                {containers.map((container) => {
+                  return (
+                    <ImageCard
+                      key={container.id}
+                      id={container.id}
+                      image={container.image}
+                    />
+                  );
+                })}
+              </SortableContext>
+            </DndContext>
+          )}
         </div>
-        {containers.length == 0 && (
+        {!loading && containers.length == 0 && (
           <div className="py-24 font-bold text-2xl">Add your first image!</div>
         )}
       </div>

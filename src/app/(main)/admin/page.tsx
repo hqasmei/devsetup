@@ -2,12 +2,12 @@ import React from 'react';
 
 import { cookies } from 'next/headers';
 
-import MaxWidthWrapper from '@/components/max-width-wrapper';
 import MobilePreview from '@/components/mobile-preview';
-import PhotoSection from '@/components/photo-section';
+import PhotosSection from '@/components/photos-section';
+import { ImageProps } from '@/lib/types';
 import { createClient } from '@/utils/supabase/server';
 
-const SetupPage = async () => {
+export default async function SetupPage() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -15,17 +15,15 @@ const SetupPage = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: setups } = await supabase
-    .from('setups')
+  const { data } = await supabase
+    .from('images')
     .select('*')
     .eq('user_id', user?.id);
 
   return (
     <div className="flex flex-row w-full">
-      <PhotoSection />
+      <PhotosSection input={data as ImageProps[]} />
       <MobilePreview user={user} />
     </div>
   );
-};
-
-export default SetupPage;
+}
