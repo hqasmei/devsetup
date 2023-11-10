@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import ImageSlider from '@/components/image-slider';
 import { useShareSetupModal } from '@/components/modals/share-setup-modal';
-import { Product } from '@/lib/types';
+import { ProductProps } from '@/lib/types';
 import { createClient } from '@/utils/supabase/client';
 
 const MobilePreview = ({ user }: { user: any }) => {
@@ -91,7 +91,7 @@ const MobilePreview = ({ user }: { user: any }) => {
   }, [products, setProducts, setImages]);
 
   // Use reduce to group products by category
-  const productsByCategory: { [key: string]: Product[] } = products.reduce(
+  const productsByCategory: { [key: string]: ProductProps[] } = products.reduce(
     (result, product) => {
       const { product_category } = product;
       if (!result[product_category]) {

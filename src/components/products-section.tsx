@@ -30,10 +30,9 @@ import {
 } from '@dnd-kit/sortable';
 import axios from 'axios';
 
-export default function ProductsSection() {
+export default function ProductsSection({ input }: any) {
   const supabase = createClient();
 
-  const [products, setProducts] = useState<any[]>([]);
   const [containers, setContainers] = useState<ProductDNDType[]>([]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [loading, setLoading] = useState(true);
@@ -97,30 +96,14 @@ export default function ProductsSection() {
   };
 
   useEffect(() => {
-    async function getProducts() {
-      setLoading(true);
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      const { data } = await supabase
-        .from('products')
-        .select()
-        .eq('user_id', user?.id);
-
-      if (data) {
-        setProducts(data);
-        setContainers(
-          data
-            .map((product) => ({
-              id: 'container-' + product.product_id,
-              product: product,
-            }))
-            .sort((a: any, b: any) => a.product.position - b.product.position),
-        );
-        setLoading(false);
-      }
-    }
+    setContainers(
+      input
+        .map((product: any) => ({
+          id: 'container-' + product.product_id,
+          product: product,
+        }))
+        .sort((a: any, b: any) => a.product.position - b.product.position),
+    );
 
     const productChanges = supabase
       .channel('products channel')
@@ -133,30 +116,42 @@ export default function ProductsSection() {
         },
         (payload) => {
           if (payload.eventType === 'INSERT') {
-            const newProduct = [payload.new];
-            setProducts((prevProducts) => [...prevProducts, ...newProduct]);
+            const newProduct = payload.new;
+            const transformedProduct = {
+              id: 'container-' + newProduct.product_id,
+              product: newProduct,
+            };
+
+            setContainers((prevContainers) =>
+              [...prevContainers, transformedProduct].sort(
+                (a: any, b: any) => a.product.position - b.product.position,
+              ),
+            );
           } else if (payload.eventType === 'DELETE') {
-            // Handle delete event here
             const deletedId = payload.old.product_id; // Use the correct column name
-            setProducts((prevProducts) =>
-              prevProducts.filter((item) => item.product_id !== deletedId),
+            setContainers(
+              (prevContainers) =>
+                prevContainers.filter(
+                  (item) => item.product.product_id !== deletedId,
+                ) as ProductDNDType[], // Add the type assertion here
             );
           } else if (payload.eventType === 'UPDATE') {
             // Handle update event here
             const updatedProduct = payload.new;
-            setProducts((prevProducts) =>
-              prevProducts.map((item) =>
-                item.product_id === updatedProduct.product_id
-                  ? updatedProduct
+
+            setContainers((prevContainers) => [
+              ...prevContainers.map((item) =>
+                item.product.product_id === updatedProduct.product_id
+                  ? { ...item, product: updatedProduct }
                   : item,
               ),
-            );
+            ]);
           }
         },
       )
       .subscribe();
 
-    getProducts();
+    setLoading(false);
     setIsMounted(true);
 
     return () => {

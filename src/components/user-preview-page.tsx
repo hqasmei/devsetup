@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import ImageSlider from '@/components/image-slider';
 import { useShareSetupModal } from '@/components/modals/share-setup-modal';
-import { Product } from '@/lib/types';
+import { ProductProps } from '@/lib/types';
 
 const UserPreviewPage = ({
   user,
@@ -20,7 +20,7 @@ const UserPreviewPage = ({
   if (user && user.user && user.user.user_metadata) {
     userData = user.user.user_metadata;
   }
-  const productsByCategory: { [key: string]: Product[] } = products.reduce(
+  const productsByCategory: { [key: string]: ProductProps[] } = products.reduce(
     (result: any, product: any) => {
       const { product_category } = product;
       if (!result[product_category]) {

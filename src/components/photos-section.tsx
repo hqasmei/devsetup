@@ -2,21 +2,30 @@
 
 import { useEffect, useState } from 'react';
 
-
-
 import { Button } from '@/components/ui/button';
-import { ImageDNDType } from '@/lib/types';
+import { ImageDNDType, ImageProps } from '@/lib/types';
 import { createClient } from '@/utils/supabase/client';
-import { closestCenter, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, UniqueIdentifier, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  KeyboardSensor,
+  PointerSensor,
+  UniqueIdentifier,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable';
 import { Loader2 } from 'lucide-react';
-
-
 
 import ImageCard from './image-card';
 
-
-export default function PhotosSection() {
+export default function PhotosSection({ input }: any) {
   const supabase = createClient();
 
   const [uploading, setUploading] = useState(false);
@@ -34,30 +43,14 @@ export default function PhotosSection() {
   );
 
   useEffect(() => {
-    const getImages = async () => {
-      setLoading(true);
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUserId(user?.id);
-
-      const { data } = await supabase
-        .from('images')
-        .select('*')
-        .eq('user_id', user?.id);
-
-      if (data) {
-        setContainers(
-          data
-            .map((image) => ({
-              id: 'container-' + image.image_id,
-              image: image,
-            }))
-            .sort((a: any, b: any) => a.image.position - b.image.position),
-        );
-        setLoading(false);
-      }
-    };
+    setContainers(
+      input
+        .map((image: any) => ({
+          id: 'container-' + image.image_id,
+          image: image,
+        }))
+        .sort((a: any, b: any) => a.image.position - b.image.position),
+    );
 
     const imageChanges = supabase
       .channel('images channel')
@@ -95,7 +88,7 @@ export default function PhotosSection() {
       )
       .subscribe();
 
-    getImages();
+    setLoading(false);
     setIsMounted(true);
 
     return () => {
@@ -193,7 +186,7 @@ export default function PhotosSection() {
         activeContainerIndex,
         overContainerIndex,
       );
-      console.log(newContainers);
+
       setContainers(newContainers);
 
       // Update the database positions based on the client-side order
